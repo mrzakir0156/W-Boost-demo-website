@@ -1,0 +1,3619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W-BOOST - Web3 NFT Platform</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========== COMPLETE CSS ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .page {
+            width: 1320px;
+            max-width: 100%;
+            display: none;
+            position: relative;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* ========== PAGE 1 & 2 - RED/GRAY/WHITE THEME ========== */
+        .page1-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 2.5rem;
+            box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.1);
+        }
+
+        .split-panel {
+            display: flex;
+            border-radius: 2.5rem;
+            overflow: hidden;
+            background: white;
+            border: 2px solid #e0e0e0;
+        }
+
+        .page1-brand {
+            flex: 1;
+            padding: 3rem 2.5rem;
+            background: #fafafa;
+            border-right: 2px solid #e0e0e0;
+        }
+
+        .page1-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .page1-logo i {
+            color: #ff4444;
+            font-size: 2.2rem;
+        }
+
+        .page1-logo span {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333333;
+        }
+
+        .page1-brand h2 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .tagline {
+            margin-top: 2rem;
+            font-size: 1.1rem;
+            color: #666666;
+            line-height: 1.6;
+        }
+
+        .igt-tag {
+            margin-top: 2rem;
+            color: #ff4444;
+        }
+
+        .page1-panel {
+            flex: 1;
+            padding: 3rem;
+            background: white;
+        }
+
+        .support-top {
+            text-align: right;
+            color: #ff4444;
+            margin-bottom: 2rem;
+        }
+
+        .page1-panel h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.8rem;
+            color: #333333;
+        }
+
+        label {
+            color: #555555;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .page1-input {
+            background: #fafafa;
+            border: 2px solid #e0e0e0;
+            border-radius: 3rem;
+            padding: 0.9rem 1.5rem;
+            width: 100%;
+            color: #333333;
+            font-size: 1rem;
+            margin: 0.3rem 0 1.2rem;
+        }
+
+        .page1-input::placeholder {
+            color: #999999;
+        }
+
+        .page1-input:focus {
+            outline: 2px solid #ff4444;
+            border-color: #ff4444;
+        }
+
+        .link-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #ff4444;
+            margin-top: -0.5rem;
+        }
+
+        .forgot-link {
+            color: #ff4444;
+            cursor: pointer;
+        }
+
+        .page1-btn {
+            background: #ff4444;
+            border: none;
+            padding: 1rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+            width: 100%;
+            margin: 1.2rem 0 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 2px solid #cc0000;
+        }
+
+        .page1-btn:hover {
+            background: #cc0000;
+        }
+
+        .signup-text {
+            text-align: center;
+            margin: 0.2rem 0 1.2rem;
+            color: #666666;
+        }
+
+        .signup-link {
+            color: #ff4444;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .igt-footer {
+            margin-top: 3rem;
+            color: #ff4444;
+            font-size: 0.9rem;
+            border-top: 2px solid #e0e0e0;
+            padding-top: 1.5rem;
+        }
+
+        /* MODAL / POPUP STYLES */
+        .modal-overlay, .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content, .popup-content {
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem;
+            width: 500px;
+            max-width: 90%;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header, .popup-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 1rem;
+        }
+
+        .modal-header i, .popup-header i {
+            font-size: 1.8rem;
+            color: #ff4444;
+        }
+
+        .modal-header h3, .popup-header h3 {
+            flex: 1;
+            color: #333333;
+        }
+
+        .modal-close, .popup-close {
+            background: none;
+            border: none;
+            color: #999999;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .modal-footer, .popup-footer {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            border-top: 2px solid #e0e0e0;
+            padding-top: 1.5rem;
+        }
+
+        /* TOP BAR - COMMON */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            border-radius: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .logo-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: auto;
+        }
+
+        .logo-left i {
+            font-size: 1.8rem;
+        }
+
+        .logo-left span {
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.3rem 1.2rem 0.3rem 0.5rem;
+            border-radius: 3rem;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .balance-badge, .igt-badge {
+            border-radius: 2rem;
+            padding: 0.45rem 1.2rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .bell-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        /* PAGE 2 TOP BAR */
+        .page2-topbar {
+            background: #2c3e50;
+            border: 1px solid #34495e;
+        }
+
+        .page2-topbar .logo-left i,
+        .page2-topbar .logo-left span {
+            color: white;
+        }
+
+        .page2-userinfo {
+            background: #34495e;
+            border: 1px solid #3d566e;
+            color: white;
+        }
+
+        .page2-avatar {
+            background: #ff4444;
+        }
+
+        .page2-badge {
+            background: #34495e;
+            border: 1px solid #3d566e;
+            color: white;
+        }
+
+        .page2-bell {
+            background: #34495e;
+            border: 1px solid #3d566e;
+            color: white;
+        }
+
+        /* WALLET OPTIONS */
+        .wallet-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin: 2rem 0;
+        }
+
+        .wallet-row {
+            background: #fafafa;
+            border: 2px solid #e0e0e0;
+            border-radius: 3rem;
+            padding: 1rem 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #333333;
+        }
+
+        .wallet-row:hover {
+            background: #f0f0f0;
+            border-color: #ff4444;
+        }
+
+        .wallet-row i {
+            font-size: 1.8rem;
+            color: #ff4444;
+        }
+
+        .btn-light {
+            background: white;
+            border: 2px solid #ff4444;
+            color: #ff4444;
+        }
+
+        .btn-light:hover {
+            background: #fff0f0;
+        }
+
+        /* LOADER */
+        .loader {
+            border: 3px solid #e0e0e0;
+            border-top: 3px solid #ff4444;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* BACK BUTTON */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #ff4444;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 16px;
+            background: white;
+            border-radius: 2rem;
+            border: 2px solid #ff4444;
+            z-index: 100;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .back-button:hover {
+            background: #fff0f0;
+        }
+
+        /* SUPPORT LINK */
+        .support-link {
+            color: #ff4444;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .support-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ========== PAGE 3 - GRAY/WHITE THEME ========== */
+        .page3-topbar {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 0.6rem 1.5rem;
+            gap: 1.2rem;
+        }
+
+        .page3-topbar .logo-left {
+            gap: 8px;
+        }
+
+        .page3-topbar .logo-left i {
+            color: #ff4444;
+            font-size: 1.3rem;
+        }
+
+        .page3-topbar .logo-left span {
+            color: #333333;
+            font-size: 1.1rem;
+        }
+
+        .page3-userinfo {
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            padding: 0.2rem 1rem 0.2rem 0.3rem;
+            gap: 0.5rem;
+            color: #333333;
+        }
+
+        .page3-avatar {
+            width: 32px;
+            height: 32px;
+            background: #ff4444;
+            font-size: 0.8rem;
+        }
+
+        .user-name-small {
+            font-size: 0.9rem;
+        }
+
+        .page3-badge {
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            color: #333333;
+            padding: 0.3rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .page3-badge i {
+            color: #ff4444;
+        }
+
+        .page3-bell {
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            color: #ff4444;
+            width: 36px;
+            height: 36px;
+            font-size: 1rem;
+        }
+
+        .dashboard-grid {
+            display: flex;
+            gap: 1.8rem;
+        }
+
+        .page3-leftnav {
+            width: 260px;
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem 1rem;
+            border: 2px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            transition: 0.3s;
+        }
+
+        .page3-leftnav.collapsed {
+            width: 70px;
+        }
+
+        .page3-leftnav.collapsed .nav-item span,
+        .page3-leftnav.collapsed .help-item span,
+        .page3-leftnav.collapsed .logout-item span {
+            display: none;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.9rem 1.5rem;
+            border-radius: 1.5rem;
+            color: #666666;
+            font-weight: 500;
+            transition: 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .nav-item i {
+            width: 28px;
+            font-size: 1.3rem;
+            color: #ff4444;
+        }
+
+        .nav-item.active {
+            background: #fff0f0;
+            color: #ff4444;
+            border: 2px solid #ff4444;
+            font-weight: 600;
+        }
+
+        .nav-item.active i {
+            color: #ff4444;
+        }
+
+        .nav-item:not(.active):hover {
+            background: #f5f5f5;
+        }
+
+        .nav-footer {
+            margin-top: auto;
+            padding-top: 2rem;
+        }
+
+        .help-item, .logout-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.9rem 1.5rem;
+            border-radius: 1.5rem;
+            color: #666666;
+            cursor: pointer;
+        }
+
+        .help-item:hover, .logout-item:hover {
+            background: #f5f5f5;
+        }
+
+        .logout-item {
+            color: #ff4444;
+        }
+
+        .page3-main {
+            flex: 1;
+            background: white;
+            border-radius: 2rem;
+            border: 2px solid #e0e0e0;
+            padding: 1.8rem;
+            min-height: 600px;
+        }
+
+        .category-bar {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid #e0e0e0;
+            font-size: 0.9rem;
+        }
+
+        .category-item {
+            color: #666666;
+            cursor: pointer;
+            padding-bottom: 0.3rem;
+            position: relative;
+        }
+
+        .category-item.active {
+            color: #ff4444;
+            font-weight: 600;
+        }
+
+        .category-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -0.8rem;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #ff4444;
+        }
+
+        .category-actions {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .create-passport-red {
+            color: #ff4444;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .filter-icon {
+            color: #666666;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .favorite-title {
+            margin-bottom: 1.5rem;
+        }
+
+        .favorite-title h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #333333;
+            font-size: 1.2rem;
+        }
+
+        .favorite-title h2 i {
+            color: #ffb443;
+            font-size: 1rem;
+        }
+
+        .passport-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+            min-height: 300px;
+        }
+
+        /* NFT Cards */
+        .passport-card {
+            background: #fafafa;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            border: 2px solid #e0e0e0;
+            transition: 0.2s;
+            position: relative;
+        }
+
+        .passport-card:hover {
+            border-color: #ff4444;
+        }
+
+        .passport-card h4 {
+            color: #333333;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .passport-card .nft-id {
+            color: #ff4444;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0.3rem 0;
+        }
+
+        .passport-card .slot-info {
+            color: #666666;
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+        }
+
+        /* BGW Box */
+        .bgw-box {
+            background: #2c3e50;
+            color: #7effb2;
+            padding: 0.5rem;
+            border-radius: 1rem;
+            margin: 0.5rem 0;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid #00aa00;
+        }
+
+        /* Slot Circles */
+        .slot-circles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin: 0.5rem 0;
+        }
+
+        .slot-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .slot-circle.available {
+            background: #4caf50;
+            color: white;
+        }
+
+        .slot-circle.used {
+            background: #ff4444;
+            color: white;
+        }
+
+        /* Card Actions - Only in Level NFTs */
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .card-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .burn-btn {
+            background: #fff0f0;
+            border: 1px solid #ff4444;
+            color: #ff4444;
+        }
+
+        .burn-btn:hover {
+            background: #ff4444;
+            color: white;
+        }
+
+        .activate-btn {
+            background: #ff4444;
+            border: 1px solid #ff4444;
+            color: white;
+        }
+
+        .activate-btn:hover {
+            background: #cc0000;
+        }
+
+        .price-breakdown {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 1rem;
+            margin: 1rem 0;
+        }
+
+        .price-breakdown p {
+            margin: 0.3rem 0;
+            color: #333333;
+        }
+
+        .empty-message {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 3rem;
+            color: #999999;
+            font-size: 1.1rem;
+        }
+
+        .active-slots {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #ff4444;
+        }
+
+        /* 3D Active Slots Style */
+        .active-slots-3d {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.2rem;
+            margin: 0.8rem 0;
+            perspective: 500px;
+        }
+
+        .slot-3d {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: #e0e0e0;
+            color: #333;
+            border: 2px solid #ccc;
+        }
+
+        .slot-3d.center {
+            width: 50px;
+            height: 50px;
+            background: #ff4444;
+            color: white;
+            border: 2px solid #cc0000;
+            transform: scale(1.2);
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(255,68,68,0.3);
+        }
+
+        .slot-3d.left {
+            opacity: 0.6;
+            transform: translateX(-5px) scale(0.9);
+        }
+
+        .slot-3d.right {
+            opacity: 0.6;
+            transform: translateX(5px) scale(0.9);
+        }
+
+        .slot-3d.hidden {
+            opacity: 0.3;
+            transform: scale(0.7);
+        }
+
+        /* Professional Modal Styles */
+        .professional-modal {
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .price-breakdown {
+            background: #f8f9fa;
+            padding: 1.2rem;
+            border-radius: 1rem;
+            margin: 1rem 0;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .price-row.final {
+            border-bottom: none;
+            font-weight: 700;
+            color: #ff4444;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .price-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .slot-prices {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+
+        .info-box {
+            background: #f0f7ff;
+            border-left: 4px solid #ff4444;
+            padding: 0.8rem 1rem;
+            border-radius: 0.5rem;
+            margin: 0.8rem 0;
+            font-size: 0.9rem;
+        }
+
+        .highlight {
+            color: #ff4444;
+            font-weight: 600;
+        }
+
+        /* Level Type Selector */
+        .level-type-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem;
+            background: #f5f5f5;
+            border-radius: 3rem;
+        }
+
+        .radio-label {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .radio-label input[type="radio"] {
+            accent-color: #ff4444;
+            width: 16px;
+            height: 16px;
+        }
+
+        .radio-label:hover {
+            background: #e0e0e0;
+        }
+
+        /* Voucher Card Styles */
+        .voucher-card {
+            background: linear-gradient(135deg, #fff0f0, #ffe6e6);
+            border: 2px solid #ff4444;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .voucher-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 60px;
+            height: 60px;
+            background: rgba(255,68,68,0.1);
+            border-radius: 50%;
+        }
+
+        .voucher-id {
+            font-size: 1rem;
+            color: #ff4444;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .voucher-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .voucher-igt {
+            font-size: 1rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .voucher-date {
+            font-size: 0.8rem;
+            color: #999;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .voucher-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .voucher-btn {
+            flex: 1;
+            padding: 0.7rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+        }
+
+        .redeem-btn {
+            background: #fff0f0;
+            border: 1px solid #ff4444;
+            color: #ff4444;
+        }
+
+        .redeem-btn:hover {
+            background: #ff4444;
+            color: white;
+        }
+
+        .burn-btn-dark {
+            background: #cc0000;
+            border: 1px solid #990000;
+            color: white;
+        }
+
+        .burn-btn-dark:hover {
+            background: #990000;
+        }
+
+        /* Improved Passport Slots Display */
+        .passport-slots-display {
+            background: #f0f0f0;
+            border-radius: 1rem;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+        }
+
+        .slots-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.3rem;
+            margin-top: 0.5rem;
+        }
+
+        .slot-cell {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 0.5rem;
+            padding: 0.3rem;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .slot-cell.active {
+            background: #ff4444;
+            color: white;
+            border-color: #cc0000;
+        }
+
+        .slot-cell.inactive {
+            background: #f5f5f5;
+            color: #999;
+        }
+
+        /* Updated Slot Colors - Green for Active */
+        .slot-cell {
+            background: #f0f0f0;
+            border: 2px solid #e0e0e0;
+            border-radius: 0.5rem;
+            padding: 0.3rem;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #999;
+            transition: all 0.2s;
+        }
+
+        .slot-cell.active {
+            background: #4CAF50 !important;
+            color: white !important;
+            border-color: #2E7D32 !important;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .slot-cell.inactive {
+            background: #f5f5f5;
+            color: #ccc;
+            border-color: #e0e0e0;
+            opacity: 0.7;
+        }
+
+        .slot-cell:hover {
+            transform: scale(1.05);
+            z-index: 1;
+        }
+
+        /* Redemption Options */
+        .redemption-options {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .option-card {
+            flex: 1;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 1rem;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-card:hover {
+            border-color: #ff4444;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,68,68,0.1);
+        }
+
+        .option-card i {
+            font-size: 2rem;
+            color: #ff4444;
+            margin-bottom: 0.5rem;
+        }
+
+        .option-card h4 {
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+
+        .option-card p {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .voucher-info {
+            background: #f0f7ff;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Tagline */
+        .tagline p:last-child {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #2217e8;
+            opacity: 0.4;
+        }
+
+        /* ========== STYLISH PROFESSIONAL WALLET ========== */
+        .stylish-wallet {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 1rem;
+            min-height: 100vh;
+            background: radial-gradient(circle at 20% 20%, #1e293b, #0f172a);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Glass Header */
+        .wallet-header-glass {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 2rem;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        /* Glass Back Button - with text */
+        .glass-back-btn {
+            width: auto;
+            padding: 0 1rem;
+            height: 40px;
+            border-radius: 2rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .glass-back-btn:hover {
+            background: rgba(59,130,246,0.3);
+            border-color: #3b82f6;
+            transform: scale(1.05);
+        }
+
+        .glass-menu-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .glass-menu-btn:hover {
+            background: rgba(59,130,246,0.3);
+            border-color: #3b82f6;
+            transform: scale(1.05);
+        }
+        .header-content {
+            text-align: center;
+        }
+
+        .welcome-text {
+            display: block;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 0.2rem;
+        }
+
+        .wallet-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Premium Balance Card */
+        .premium-balance-card {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border-radius: 2rem;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -10px rgba(59,130,246,0.5);
+            transform: translateY(0);
+            transition: transform 0.3s;
+        }
+
+        .premium-balance-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-shine {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            opacity: 0.5;
+            animation: shine 8s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .balance-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .balance-label {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .balance-amount {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            margin-bottom: 1rem;
+        }
+
+        .balance-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat span:first-child {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.75rem;
+        }
+
+        .stat span:last-child {
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .positive {
+            color: #4ade80 !important;
+        }
+
+        .details-glass-btn {
+            position: absolute;
+            top: 1.8rem;
+            right: 1.8rem;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+            z-index: 2;
+        }
+
+        .details-glass-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateX(3px);
+        }
+
+        /* Modern Tabs */
+        .modern-tabs {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.05);
+            padding: 0.4rem;
+            border-radius: 3rem;
+            margin-bottom: 2rem;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 0.8rem;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tab-btn.active {
+            color: white;
+        }
+
+        .tab-indicator {
+            position: absolute;
+            height: 80%;
+            width: 33.33%;
+            background: #3b82f6;
+            border-radius: 2rem;
+            top: 10%;
+            left: 0.4rem;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(59,130,246,0.3);
+        }
+
+        /* Assets Grid */
+        .assets-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .asset-premium-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .asset-premium-card:hover {
+            transform: translateY(-3px) scale(1.02);
+            border-color: rgba(59,130,246,0.3);
+            box-shadow: 0 10px 30px -10px rgba(59,130,246,0.3);
+        }
+
+        .matic-glow:hover { box-shadow: 0 10px 30px -10px #8247e5; }
+        .ces-glow:hover { box-shadow: 0 10px 30px -10px #10b981; }
+        .dai-glow:hover { box-shadow: 0 10px 30px -10px #f59e0b; }
+
+        .card-inner {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .asset-icon-wrapper {
+            position: relative;
+        }
+
+        .asset-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .asset-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+            border-radius: 50%;
+        }
+
+        .asset-icon.matic { background: linear-gradient(135deg, #8247e5, #6b3bc2); }
+        .asset-icon.ces { background: linear-gradient(135deg, #10b981, #059669); }
+        .asset-icon.dai { background: linear-gradient(135deg, #f59e0b, #d97706); }
+
+        .asset-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #3b82f6;
+            color: white;
+            font-size: 0.6rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 1rem;
+            border: 2px solid #1e293b;
+        }
+
+        .asset-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .asset-name {
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .asset-amount {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .asset-value {
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .asset-graph {
+            margin-top: 0.5rem;
+            height: 20px;
+            position: relative;
+        }
+
+        .graph-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #10b981);
+            border-radius: 1px;
+            animation: graphPulse 2s infinite;
+        }
+
+        @keyframes graphPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Action Glass Panel */
+        .action-glass-panel {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .glass-action-btn {
+            flex: 1;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1.5rem;
+            padding: 1rem;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .glass-action-btn i {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .glass-action-btn:hover {
+            background: rgba(59,130,246,0.2);
+            border-color: #3b82f6;
+            transform: translateY(-3px);
+        }
+
+        .glass-action-btn:hover i {
+            transform: scale(1.1);
+        }
+
+        .glass-action-btn.primary {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border: none;
+        }
+
+        .glass-action-btn.secondary {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Refill Glass Panel */
+        .refill-glass-panel {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .refill-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .refill-header i {
+            color: #3b82f6;
+            font-size: 1.2rem;
+        }
+
+        .refill-header h4 {
+            color: white;
+            font-size: 1rem;
+        }
+
+        .refill-input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .refill-input-group input {
+            flex: 1;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 0.8rem 1rem;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .refill-input-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .glass-confirm-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 1rem;
+            background: #3b82f6;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .glass-confirm-btn:hover {
+            background: #2563eb;
+            transform: scale(1.05);
+        }
+
+        /* Floating Navigation Bar */
+        .floating-nav-bar {
+            position: sticky;
+            bottom: 1rem;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 3rem;
+            padding: 0.5rem;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 2rem;
+        }
+
+        .nav-glass-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-glass-btn i {
+            font-size: 1.2rem;
+        }
+
+        .nav-glass-btn span {
+            font-size: 0.7rem;
+        }
+
+        .nav-glass-btn.active {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 15px rgba(59,130,246,0.4);
+        }
+
+        .nav-glass-btn:hover {
+            color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        /* Stylish Modal */
+        .stylish-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .stylish-modal {
+            background: #1e293b;
+            border: 1px solid rgba(59,130,246,0.3);
+            border-radius: 2rem;
+            padding: 2rem;
+            width: 90%;
+            max-width: 380px;
+            position: relative;
+            overflow: hidden;
+            animation: modalPop 0.3s ease;
+        }
+
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-glow {
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .modal-header i {
+            font-size: 1.5rem;
+            color: #3b82f6;
+        }
+
+        .modal-header h3 {
+            flex: 1;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .modal-close {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,68,68,0.3);
+            border-color: #ff4444;
+            transform: rotate(90deg);
+        }
+
+        .info-glass-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1.2rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            color: white;
+        }
+
+        .input-glass-group {
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .input-glass-group label {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .input-glass-group input {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 0.8rem 1rem;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .input-glass-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .price-control-glass {
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .price-control-glass label {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .price-input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .price-input-group input {
+            flex: 1;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 0.6rem 1rem;
+            color: white;
+        }
+
+        .glass-set-btn {
+            padding: 0.6rem 1.2rem;
+            background: rgba(59,130,246,0.2);
+            border: 1px solid #3b82f6;
+            border-radius: 1rem;
+            color: #3b82f6;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .glass-set-btn:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .receive-glass-card {
+            background: rgba(59,130,246,0.1);
+            border: 1px solid rgba(59,130,246,0.3);
+            border-radius: 1.2rem;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.5rem 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .receive-glass-card span {
+            color: #94a3b8;
+        }
+
+        .receive-glass-card strong {
+            color: #3b82f6;
+            font-size: 1.2rem;
+        }
+
+        .modal-action-buttons {
+            display: flex;
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .glass-cancel-btn {
+            flex: 1;
+            padding: 0.8rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .glass-cancel-btn:hover {
+            background: rgba(255,68,68,0.2);
+            border-color: #ff4444;
+        }
+
+        .glass-confirm-btn {
+            flex: 1;
+            padding: 0.8rem;
+            background: #3b82f6;
+            border: none;
+            border-radius: 1rem;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .glass-confirm-btn:hover {
+            background: #2563eb;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== COMPLETE HTML ========== -->
+    <!-- PAGE 1: WELCOME + LOGIN -->
+    <div id="page1" class="page active">
+        <div class="back-button" style="visibility: hidden;">← Back</div>
+        
+        <div class="split-panel glass-card page1-card">
+            <div class="left-brand page1-brand">
+                <div class="logo page1-logo">
+                    <i class="fas fa-bolt"></i>
+                    <span>W-BOOST (DEMO) </span>
+                </div>
+                <h2>Where your growth becomes digital capital</h2>
+                <div class="tagline">
+                    <p>DEMO W-Boost is your digital capital. Your participation.<br>Your freedom. Your height.</p>
+                    <p class="igt-tag">
+                        <i class="fas fa-diamond"></i> CHAMPION TEAM INDIA 
+                        <img src="https://flagcdn.com/16x12/in.png" 
+                            srcset="https://flagcdn.com/32x24/in.png 2x,
+                                    https://flagcdn.com/48x36/in.png 3x"
+                            width="16" 
+                            height="12"
+                            alt="India Flag"
+                            style="margin-left: 5px; vertical-align: middle;">
+                    </p>
+                    <p>@Mrzakir156</p>
+                </div>
+            </div>
+            
+            <div class="right-panel page1-panel">
+                <div class="support-top">
+                    <a href="https://t.me/Mrzakir156" target="_blank" class="support-link">Support <i class="far fa-question-circle"></i></a>
+                </div>
+                <h3>Welcome Back</h3>
+                
+                <label>Email</label>
+                <input class="input-field page1-input" type="email" id="loginEmail" placeholder="Enter your email">
+                
+                <label>Password</label>
+                <input class="input-field page1-input" type="password" id="loginPassword" placeholder="Enter your password">
+                
+                <div class="link-row">
+                    <span></span>
+                    <span class="forgot-link">Forgot password?</span>
+                </div>
+                
+                <button class="btn page1-btn" onclick="handleLogin()">Login</button>
+                
+                <div class="signup-text">Don't have an account? <span class="signup-link" onclick="showSignup()">Sign up</span></div>
+                
+                <div class="igt-footer">
+                    <i class="fas fa-bolt"></i> DEMO · W-Boost is your digital capital.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIGNUP MODAL -->
+    <div id="signupModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-user-plus"></i>
+                <h3>Create Account</h3>
+                <button class="modal-close" onclick="closeSignup()">✕</button>
+            </div>
+            <div class="modal-body">
+                <label>Full Name</label>
+                <input class="input-field page1-input" type="text" id="signupName" placeholder="Enter your full name">
+                <label>Email</label>
+                <input class="input-field page1-input" type="email" id="signupEmail" placeholder="Enter your email">
+                <label>Password</label>
+                <input class="input-field page1-input" type="password" id="signupPassword" placeholder="Create password">
+                <label>Confirm Password</label>
+                <input class="input-field page1-input" type="password" id="signupConfirm" placeholder="Confirm password">
+            </div>
+            <div class="modal-footer">
+                <button class="btn-small btn-light" onclick="closeSignup()">Cancel</button>
+                <button class="btn-small btn-primary" onclick="handleSignup()">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: CONNECT WALLET -->
+    <div id="page2" class="page">
+        <div class="back-button" onclick="goBack()">← Back</div>
+        
+        <div class="top-bar page2-topbar">
+            <div class="logo-left">
+                <i class="fas fa-bolt"></i>
+                <span>W-BOOST</span>
+            </div>
+            <div class="user-info page2-userinfo">
+                <div class="avatar page2-avatar" id="userAvatar"></div>
+                <span id="userNameDisplay"></span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="balance-badge page2-badge"><i class="fas fa-coins"></i> 0 CES</div>
+            <div class="igt-badge page2-badge"><i class="fas fa-bolt"></i> 0 IGT</div>
+            <div class="bell-icon page2-bell"><i class="far fa-bell"></i></div>
+        </div>
+
+        <div class="split-panel glass-card page1-card">
+            <div class="left-brand page1-brand">
+                <h2>Connect Wallet</h2>
+                <p>Choose a wallet to connect to Polygon network</p>
+                <div class="igt-note">
+                    <i class="fas fa-diamond"></i> IGT · W-Boost is your digital capital.
+                </div>
+            </div>
+            <div class="right-panel page1-panel">
+                <div class="support-top">
+                    <a href="https://t.me/Mrzakir156" target="_blank" class="support-link">Support <i class="far fa-question-circle"></i></a>
+                </div>
+                <div class="wallet-options">
+                    <div class="wallet-row" onclick="showWalletPopup('OKXWallet')"><i class="fab fa-chrome"></i> OKXWallet</div>
+                    <div class="wallet-row" onclick="showWalletPopup('MetaMask')"><i class="fab fa-firefox"></i> MetaMask</div>
+                    <div class="wallet-row" onclick="showWalletPopup('Phantom')"><i class="fas fa-eye"></i> Phantom</div>
+                    <div class="wallet-row" onclick="showWalletPopup('WalletConnect')"><i class="fas fa-link"></i> WalletConnect</div>
+                </div>
+                <button class="btn page1-btn btn-light" onclick="simulateConnection()">Demo Connect</button>
+                <div class="igt-footer">
+                    <i class="fas fa-bolt"></i> IGT · Your participation. Your freedom.
+                </div>
+            </div>
+        </div>
+        
+        <!-- WALLET POPUP -->
+        <div id="walletPopup" class="popup-overlay">
+            <div class="popup-content">
+                <div class="popup-header">
+                    <i class="fas fa-plug"></i>
+                    <h3>Connecting <span id="popupWalletName">Wallet</span></h3>
+                    <button class="popup-close" onclick="closePopup()">✕</button>
+                </div>
+                <div class="popup-body">
+                    <div class="loader"></div>
+                    <p>Requesting connection...</p>
+                    <p class="popup-sub">Please approve in your wallet</p>
+                </div>
+                <div class="popup-footer">
+                    <button class="btn-small btn-light" onclick="closePopup()">Cancel</button>
+                    <button class="btn-small btn-primary" onclick="completeConnection()">Connect</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: DASHBOARD -->
+    <div id="page3" class="page">
+        <!-- TOP BAR - NO CES COLUMN -->
+        <div class="top-bar page3-topbar">
+            <div class="logo-left">
+                <i class="fas fa-bars menu-toggle" onclick="toggleSidebar()"></i>
+                <i class="fas fa-bolt"></i>
+                <span>W-BOOST</span>
+            </div>
+            <div class="user-info page3-userinfo">
+                <div class="avatar page3-avatar" id="dashboardAvatar"></div>
+                <span id="dashboardUserName" class="user-name-small"></span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="balance-badge page3-badge" id="topIGTBalance">0 IGT</div>
+            <div class="bell-icon page3-bell"><i class="far fa-bell"></i></div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- LEFT NAVIGATION -->
+            <div class="left-nav page3-leftnav" id="sidebar">
+                <div class="nav-item active" onclick="switchTab('home')"><i class="fas fa-home"></i> <span>Home</span></div>
+                <div class="nav-item" onclick="switchTab('market')"><i class="fas fa-chart-line"></i> <span>Market</span></div>
+                <div class="nav-item" onclick="switchTab('analytics')"><i class="fas fa-chart-pie"></i> <span>Analytics</span></div>
+                <div class="nav-item" onclick="switchTab('wallet')"><i class="fas fa-wallet"></i> <span>Wallet</span></div>
+                <div class="nav-item" onclick="switchTab('settings')"><i class="fas fa-cog"></i> <span>Settings</span></div>
+                <div class="nav-footer">
+                    <div class="help-item"><i class="far fa-question-circle"></i> <span>Help</span></div>
+                    <div class="logout-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> <span>Log out</span></div>
+                </div>
+            </div>
+
+            <!-- RIGHT CONTENT -->
+            <div class="main-content page3-main">
+                <!-- CATEGORY BAR -->
+                <div class="category-bar">
+                    <div class="category-item active" onclick="switchContentTab('passport')" id="tab-passport">Passport NFTs</div>
+                    <div class="category-item" onclick="switchContentTab('level')" id="tab-level">NFT Level</div>
+                    <div class="category-item" onclick="switchContentTab('vouchers')" id="tab-vouchers">Vouchers</div>
+                    <div class="category-actions">
+                        <span class="create-passport-red" onclick="showCreatePopup()" id="createBtn">+ Create Passport NFT</span>
+                        <i class="fas fa-sliders-h filter-icon"></i>
+                    </div>
+                </div>
+
+                <div class="favorite-title">
+                    <h2><i class="fas fa-star"></i> Favorite</h2>
+                </div>
+
+                <!-- PASSPORT NFTs CONTENT -->
+                <div id="passportContent" class="content-section">
+                    <div id="passportGrid" class="passport-grid"></div>
+                </div>
+
+                <!-- NFT LEVEL CONTENT -->
+                <div id="levelContent" class="content-section" style="display: none;">
+                    <div id="levelGrid" class="passport-grid"></div>
+                </div>
+
+                <!-- VOUCHERS CONTENT -->
+                <div id="vouchersContent" class="content-section" style="display: none;">
+                    <div id="voucherGrid" class="passport-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CREATE PASSPORT NFT POPUP -->
+    <div id="createPassportPopup" class="modal-overlay">
+        <div class="modal-content professional-modal">
+            <div class="modal-header">
+                <i class="fas fa-id-card"></i>
+                <h3>Create New Passport NFT</h3>
+                <button class="modal-close" onclick="closeCreatePassportPopup()">✕</button>
+            </div>
+            <div class="modal-body">
+                <label>Upline Link / Wallet Address</label>
+                <input class="input-field page1-input" type="text" id="nftUpline" placeholder="Enter upline link or wallet address">
+                <label>NFT Name</label>
+                <input class="input-field page1-input" type="text" id="nftName" placeholder="Enter NFT name">
+            </div>
+            <div class="modal-footer">
+                <button class="btn-small btn-light" onclick="closeCreatePassportPopup()">Cancel</button>
+                <button class="btn-small btn-primary" onclick="createPassportNFT()">Create NFT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CREATE NFT LEVEL POPUP -->
+    <div id="createLevelPopup" class="modal-overlay">
+        <div class="modal-content professional-modal">
+            <div class="modal-header">
+                <i class="fas fa-layer-group"></i>
+                <h3>Create NFT Level</h3>
+                <button class="modal-close" onclick="closeCreateLevelPopup()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="level-type-selector">
+                    <label class="radio-label">
+                        <input type="radio" name="levelType" value="sequential" checked onchange="toggleLevelType()"> Sequential (1,2,3...)
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="levelType" value="individual" onchange="toggleLevelType()"> Individual (Single Slot)
+                    </label>
+                </div>
+                
+                <div id="sequentialSection">
+                    <label>Select Slots (1 to 10 in sequence)</label>
+                    <select id="slotSelect" class="input-field page1-input" onchange="calculatePrice()">
+                        <option value="1">1 Slot (1)</option>
+                        <option value="2">2 Slots (1,2)</option>
+                        <option value="3">3 Slots (1,2,3)</option>
+                        <option value="4">4 Slots (1,2,3,4)</option>
+                        <option value="5">5 Slots (1,2,3,4,5)</option>
+                        <option value="6">6 Slots (1,2,3,4,5,6)</option>
+                        <option value="7">7 Slots (1,2,3,4,5,6,7)</option>
+                        <option value="8">8 Slots (1,2,3,4,5,6,7,8)</option>
+                        <option value="9">9 Slots (1,2,3,4,5,6,7,8,9)</option>
+                        <option value="10">10 Slots (1-10)</option>
+                    </select>
+                </div>
+                
+                <div id="individualSection" style="display: none;">
+                    <label>Select Slot Number (1 to 10)</label>
+                    <select id="individualSlotSelect" class="input-field page1-input" onchange="calculateIndividualPrice()">
+                        <option value="1">Slot 1</option>
+                        <option value="2">Slot 2</option>
+                        <option value="3">Slot 3</option>
+                        <option value="4">Slot 4</option>
+                        <option value="5">Slot 5</option>
+                        <option value="6">Slot 6</option>
+                        <option value="7">Slot 7</option>
+                        <option value="8">Slot 8</option>
+                        <option value="9">Slot 9</option>
+                        <option value="10">Slot 10</option>
+                    </select>
+                </div>
+                
+                <div class="price-breakdown">
+                    <p><strong>Slot Prices:</strong></p>
+                    <p class="slot-prices">1=20, 2=160, 3=800, 4=2000, 5=4000, 6=2000, 7=6000, 8=12000, 9=18000, 10=27000</p>
+                    <div class="price-row">
+                        <span>Total Slots Price:</span>
+                        <span class="price-value" id="totalSlotsPrice">0</span>
+                    </div>
+                    <div class="price-row">
+                        <span>+10% Subscription:</span>
+                        <span class="price-value" id="subscriptionAmount">0</span>
+                    </div>
+                    <div class="price-row final">
+                        <span>Final Price:</span>
+                        <span class="price-value" id="finalPrice">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-small btn-light" onclick="closeCreateLevelPopup()">Cancel</button>
+                <button class="btn-small btn-primary" onclick="createLevelNFT()">Create Level NFT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CREATE VOUCHER NFT POPUP -->
+    <div id="createVoucherPopup" class="modal-overlay">
+        <div class="modal-content professional-modal">
+            <div class="modal-header">
+                <i class="fas fa-ticket-alt"></i>
+                <h3>Create Voucher NFT</h3>
+                <button class="modal-close" onclick="closeCreateVoucherPopup()">✕</button>
+            </div>
+            <div class="modal-body">
+                <label>Enter IGT Amount for Voucher</label>
+                <input type="number" id="voucherAmount" class="input-field page1-input" min="1" value="100" placeholder="Enter IGT amount">
+                
+                <div class="info-box">
+                    <p>You will create a Voucher NFT worth <strong><span id="displayVoucherAmount">100</span> IGT</strong></p>
+                    <p>This amount will be deducted from your IGT balance</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-small btn-light" onclick="closeCreateVoucherPopup()">Cancel</button>
+                <button class="btn-small btn-primary" onclick="createVoucherNFT()">Create Voucher</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACTIVATE SLOTS POPUP -->
+    <div id="activatePopup" class="modal-overlay">
+        <div class="modal-content professional-modal">
+            <div class="modal-header">
+                <i class="fas fa-play-circle"></i>
+                <h3>Activate Slots</h3>
+                <button class="modal-close" onclick="closeActivatePopup()">✕</button>
+            </div>
+            <div class="modal-body">
+                <label>Select Passport NFT:</label>
+                <select id="passportSelect" class="input-field page1-input"></select>
+                
+                <div class="slot-range-info" id="slotRangeInfo"></div>
+                
+                <label>Number of Slots to Activate (Max: <span id="maxSlots" class="highlight">0</span>)</label>
+                <input type="number" id="slotsToActivate" class="input-field page1-input" min="1" value="1">
+                
+                <div class="info-box" id="activateInfo"></div>
+                <div class="info-box highlight" id="amountInfo"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-small btn-light" onclick="closeActivatePopup()">Cancel</button>
+                <button class="btn-small btn-primary" onclick="confirmActivate()">Activate</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- STYLISH WALLET PAGE - GLASS MORPHISM + 3D -->
+    <div id="walletPage" class="stylish-wallet" style="display: none;">
+        <!-- Header with Glass Effect -->
+        <div class="wallet-header-glass">
+            <button class="glass-back-btn" onclick="closeWallet()">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <div class="header-content">
+                <span class="welcome-text">Welcome Back</span>
+                <span class="wallet-name">Main Wallet</span>
+            </div>
+            <button class="glass-menu-btn">
+                <i class="fas fa-ellipsis-v"></i>
+            </button>
+        </div>
+        <!-- Balance Card - 3D Premium -->
+        <div class="premium-balance-card">
+            <div class="card-shine"></div>
+            <div class="balance-content">
+                <span class="balance-label">Total Balance</span>
+                <div class="balance-amount">≈ $<span id="totalBalance">0.00</span></div>
+                <div class="balance-stats">
+                    <div class="stat">
+                        <span>24h Change</span>
+                        <span class="positive">+2.4%</span>
+                    </div>
+                    <div class="stat">
+                        <span>Assets</span>
+                        <span>3</span>
+                    </div>
+                </div>
+            </div>
+            <button class="details-glass-btn">
+                Details <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- Tabs - Modern Slider -->
+        <div class="modern-tabs">
+            <div class="tab-indicator"></div>
+            <button class="tab-btn active" onclick="switchWalletTab('assets', this)">Assets</button>
+            <button class="tab-btn" onclick="switchWalletTab('defi', this)">DeFi</button>
+            <button class="tab-btn" onclick="switchWalletTab('nft', this)">NFT</button>
+        </div>
+
+        <!-- Assets Grid - 3D Cards -->
+        <div id="assetsContent" class="assets-grid active">
+            <!-- MATIC Premium Card -->
+            <div class="asset-premium-card matic-glow">
+                <div class="card-inner">
+                    <div class="asset-icon-wrapper">
+                        <div class="asset-icon matic">
+                            <i class="fab fa-bitcoin"></i>
+                        </div>
+                        <div class="asset-badge">Popular</div>
+                    </div>
+                    <div class="asset-details">
+                        <span class="asset-name">MATIC</span>
+                        <span class="asset-amount" id="maticAmount">0.00</span>
+                    </div>
+                    <div class="asset-value">≈ $<span id="maticValue">0.00</span></div>
+                    <div class="asset-graph">
+                        <span class="graph-line"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CES Premium Card -->
+            <div class="asset-premium-card ces-glow">
+                <div class="card-inner">
+                    <div class="asset-icon-wrapper">
+                        <div class="asset-icon ces">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="asset-badge">Main</div>
+                    </div>
+                    <div class="asset-details">
+                        <span class="asset-name">CES</span>
+                        <span class="asset-amount" id="cesAmount">0.00</span>
+                    </div>
+                    <div class="asset-value">≈ $<span id="cesValue">0.00</span></div>
+                    <div class="asset-graph">
+                        <span class="graph-line"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DAI Premium Card -->
+            <div class="asset-premium-card dai-glow">
+                <div class="card-inner">
+                    <div class="asset-icon-wrapper">
+                        <div class="asset-icon dai">
+                            <i class="fas fa-circle"></i>
+                        </div>
+                        <div class="asset-badge">Stable</div>
+                    </div>
+                    <div class="asset-details">
+                        <span class="asset-name">DAI</span>
+                        <span class="asset-amount" id="daiAmount">0.00</span>
+                    </div>
+                    <div class="asset-value">≈ $<span id="daiValue">0.00</span></div>
+                    <div class="asset-graph">
+                        <span class="graph-line"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DeFi Content (hidden) -->
+        <div id="defiContent" class="assets-grid" style="display: none;">
+            <div class="empty-message">No DeFi assets yet</div>
+        </div>
+
+        <!-- NFT Content (hidden) -->
+        <div id="nftContent" class="assets-grid" style="display: none;">
+            <div class="empty-message">No NFTs yet</div>
+        </div>
+
+        <!-- Action Buttons - Glass Morphism -->
+        <div class="action-glass-panel">
+            <button class="glass-action-btn primary" onclick="showTransferPopup()">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transfer</span>
+            </button>
+            <button class="glass-action-btn secondary" onclick="showRefillSection()">
+                <i class="fas fa-plus-circle"></i>
+                <span>Refill</span>
+            </button>
+        </div>
+
+        <!-- Refill Panel - Slide Down -->
+        <div id="refillSection" class="refill-glass-panel" style="display: none;">
+            <div class="refill-header">
+                <i class="fas fa-coins"></i>
+                <h4>Refill CES</h4>
+            </div>
+            <div class="refill-input-group">
+                <input type="number" id="refillAmount" placeholder="Enter amount" min="1" value="100">
+                <button class="glass-confirm-btn" onclick="refillCES()">
+                    <i class="fas fa-check"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation - Floating Bar -->
+        <div class="floating-nav-bar">
+            <button class="nav-glass-btn active">
+                <i class="fas fa-coins"></i>
+                <span>Assets</span>
+            </button>
+            <button class="nav-glass-btn">
+                <i class="fas fa-chart-line"></i>
+                <span>Market</span>
+            </button>
+            <button class="nav-glass-btn">
+                <i class="fas fa-compass"></i>
+                <span>Discover</span>
+            </button>
+            <button class="nav-glass-btn">
+                <i class="fas fa-user"></i>
+                <span>Me</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- REDEMPTION OPTIONS POPUP -->
+    <div id="redemptionPopup" class="modal-overlay" style="display: none;">
+        <div class="modal-content professional-modal">
+            <div class="modal-header">
+                <i class="fas fa-exchange-alt"></i>
+                <h3>Redeem Voucher</h3>
+                <button class="modal-close" onclick="closeRedemptionPopup()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="voucher-info" id="redemptionVoucherInfo"></div>
+                
+                <div class="redemption-options">
+                    <div class="option-card" onclick="selectRedemptionOption('marketplace')">
+                        <i class="fas fa-store"></i>
+                        <h4>Sell on Marketplace</h4>
+                        <p>Set your own discount percentage</p>
+                    </div>
+                    
+                    <div class="option-card" onclick="selectRedemptionOption('system')">
+                        <i class="fas fa-cogs"></i>
+                        <h4>Sell to System</h4>
+                        <p>10% fee, rest converted to CES</p>
+                    </div>
+                </div>
+                
+                <div id="marketplaceOption" style="display: none;">
+                    <label>Set Discount Percentage (%):</label>
+                    <input type="number" id="discountPercent" class="input-field page1-input" min="0" max="100" value="0">
+                    <p>You will receive: <strong><span id="marketplaceAmount">0</span> CES</strong></p>
+                    <button class="btn-small btn-primary" onclick="sellOnMarketplace()">List on Marketplace</button>
+                </div>
+                
+                <div id="systemOption" style="display: none;">
+                    <p>System will take 10% fee</p>
+                    <p>You will receive: <strong><span id="systemAmount">0</span> CES</strong></p>
+                    <button class="btn-small btn-primary" onclick="sellToSystem()">Sell to System</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRANSFER POPUP - STYLISH MODAL -->
+    <div id="transferPopup" class="stylish-modal-overlay" style="display: none;">
+        <div class="stylish-modal">
+            <div class="modal-glow"></div>
+            <div class="modal-header">
+                <i class="fas fa-exchange-alt"></i>
+                <h3>Transfer to IGT</h3>
+                <button class="modal-close" onclick="closeTransferPopup()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="info-glass-card">
+                    <div class="info-row">
+                        <span>CES Balance</span>
+                        <strong id="popupCESBalance">0</strong>
+                    </div>
+                    <div class="info-row">
+                        <span>Current Price</span>
+                        <strong>$<span id="popupCESPrice">1.00</span></strong>
+                    </div>
+                </div>
+
+                <div class="input-glass-group">
+                    <label>Amount (CES)</label>
+                    <input type="number" id="transferAmount" placeholder="0.00" min="1" value="100">
+                </div>
+
+                <div class="price-control-glass">
+                    <label>Manual Price ($)</label>
+                    <div class="price-input-group">
+                        <input type="number" id="manualPrice" placeholder="Price" step="0.01">
+                        <button class="glass-set-btn" onclick="setManualPrice()">Set</button>
+                    </div>
+                </div>
+
+                <div class="receive-glass-card">
+                    <span>You will receive</span>
+                    <strong><span id="igtReceive">0</span> IGT</strong>
+                </div>
+
+                <div class="modal-action-buttons">
+                    <button class="glass-cancel-btn" onclick="closeTransferPopup()">Cancel</button>
+                    <button class="glass-confirm-btn" onclick="transferToIGT()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== COMPLETE JAVASCRIPT ==========
+        // Global variables
+        let users = [];
+        let currentUser = null;
+        let passports = [];
+        let levelNFTs = [];
+        let vouchers = [];
+        let userIGT = 0;
+        let walletCES = 0;
+        let cesPrice = 1.00;
+        let priceFluctuationInterval;
+        let manualPriceSet = false;
+        let currentLevelNFTIndex = null;
+        let currentVoucherIndex = null;
+        let currentContentTab = 'passport';
+
+        // Slot prices
+        const slotPrices = [20, 160, 800, 2000, 4000, 2000, 6000, 12000, 18000, 27000];
+
+        // ========== PAGE NAVIGATION ==========
+        function showPage(pageNumber) {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.remove('active');
+            document.getElementById('page3').classList.remove('active');
+            // Hide wallet page when navigating
+            const walletPage = document.getElementById('walletPage');
+            if (walletPage) walletPage.style.display = 'none';
+            
+            document.getElementById('page' + pageNumber).classList.add('active');
+            
+            if (pageNumber === 3) {
+                updateDashboardDisplay();
+            }
+        }
+
+        // ========== AUTH FUNCTIONS ==========
+        function showSignup() {
+            document.getElementById('signupModal').style.display = 'flex';
+        }
+
+        function closeSignup() {
+            document.getElementById('signupModal').style.display = 'none';
+            document.getElementById('signupName').value = '';
+            document.getElementById('signupEmail').value = '';
+            document.getElementById('signupPassword').value = '';
+            document.getElementById('signupConfirm').value = '';
+        }
+
+        function handleSignup() {
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirm = document.getElementById('signupConfirm').value;
+            
+            if (!name || !email || !password || !confirm) {
+                alert('Please fill all fields');
+                return;
+            }
+            
+            if (password !== confirm) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters');
+                return;
+            }
+            
+            const existingUser = users.find(u => u.email === email);
+            if (existingUser) {
+                alert('Email already registered! Please login.');
+                closeSignup();
+                return;
+            }
+            
+            const newUser = {
+                name: name,
+                email: email,
+                password: password,
+                avatar: name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase() || 'U'
+            };
+            
+            users.push(newUser);
+            alert('Signup successful! Please login.');
+            closeSignup();
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                alert('Please enter email and password');
+                return;
+            }
+            
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (!user) {
+                alert('Invalid email or password! Please signup first.');
+                return;
+            }
+            
+            currentUser = user;
+            
+            document.getElementById('userAvatar').textContent = user.avatar;
+            document.getElementById('userNameDisplay').textContent = user.name;
+            document.getElementById('dashboardAvatar').textContent = user.avatar;
+            document.getElementById('dashboardUserName').textContent = user.avatar + '...' + user.name.slice(-3);
+            
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+            
+            showPage(2);
+        }
+
+        function logout() {
+            currentUser = null;
+            showPage(1);
+        }
+
+        // ========== WALLET POPUP ==========
+        function showWalletPopup(walletName) {
+            document.getElementById('popupWalletName').textContent = walletName;
+            document.getElementById('walletPopup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('walletPopup').style.display = 'none';
+        }
+
+        function completeConnection() {
+            closePopup();
+            simulateConnection();
+        }
+
+        function simulateConnection() {
+            setTimeout(() => {
+                showPage(3);
+            }, 800);
+        }
+
+        // ========== TAB SWITCHING ==========
+        function switchContentTab(tab) {
+            currentContentTab = tab;
+            
+            document.getElementById('tab-passport').classList.remove('active');
+            document.getElementById('tab-level').classList.remove('active');
+            document.getElementById('tab-vouchers').classList.remove('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+            
+            document.getElementById('passportContent').style.display = 'none';
+            document.getElementById('levelContent').style.display = 'none';
+            document.getElementById('vouchersContent').style.display = 'none';
+            document.getElementById(tab + 'Content').style.display = 'block';
+            
+            if (tab === 'vouchers') {
+                updateVoucherGrid();
+            }
+            
+            const createBtn = document.getElementById('createBtn');
+            if (tab === 'passport') {
+                createBtn.textContent = '+ Create Passport NFT';
+            } else if (tab === 'level') {
+                createBtn.textContent = '+ Create NFT Level';
+            } else if (tab === 'vouchers') {
+                createBtn.textContent = '+ Create Voucher NFT';
+            }
+        }
+
+        function showCreatePopup() {
+            if (!currentUser) {
+                alert('Please login first');
+                showPage(1);
+                return;
+            }
+            
+            if (currentContentTab === 'passport') {
+                document.getElementById('createPassportPopup').style.display = 'flex';
+            } else if (currentContentTab === 'level') {
+                document.getElementById('createLevelPopup').style.display = 'flex';
+                calculatePrice();
+            } else if (currentContentTab === 'vouchers') {
+                document.getElementById('createVoucherPopup').style.display = 'flex';
+                updateVoucherDisplay();
+            }
+        }
+
+        // ========== WALLET FUNCTIONS ==========
+        function updateTopBarBalances() {
+            document.getElementById('topIGTBalance').innerHTML = `${userIGT} IGT`;
+        }
+
+        function updateWalletDisplay() {
+            const walletIGT = document.getElementById('walletIGT');
+            const walletCESEl = document.getElementById('walletCES');
+            const popupCES = document.getElementById('popupCESBalance');
+            
+            if (walletIGT) walletIGT.textContent = userIGT;
+            if (walletCESEl) walletCESEl.textContent = walletCES;
+            if (popupCES) popupCES.textContent = walletCES;
+            
+            // Update coin values
+            updateCoinValues();
+        }
+
+        function switchTab(tab) {
+            if (tab === 'wallet') {
+                // Hide page3, show wallet page
+                document.getElementById('page3').style.display = 'none';
+                const walletPage = document.getElementById('walletPage');
+                if (walletPage) {
+                    walletPage.style.display = 'block';
+                    updateWalletDisplay();
+                }
+            } else {
+                // Show page3, hide wallet page
+                document.getElementById('page3').style.display = 'block';
+                const walletPage = document.getElementById('walletPage');
+                if (walletPage) walletPage.style.display = 'none';
+            }
+        }
+
+        function closeWallet() {
+            // Go back to dashboard
+            document.getElementById('page3').style.display = 'block';
+            const walletPage = document.getElementById('walletPage');
+            if (walletPage) walletPage.style.display = 'none';
+        }
+
+        function refillCES() {
+            const amount = parseInt(document.getElementById('refillAmount').value);
+            if (amount > 0) {
+                walletCES += amount;
+                updateWalletDisplay();
+                document.getElementById('refillSection').style.display = 'none';
+                alert(`✅ Refilled ${amount} CES to your wallet!`);
+            }
+        }
+
+        function showTransferPopup() {
+            document.getElementById('transferPopup').style.display = 'flex';
+            document.getElementById('popupCESPrice').textContent = cesPrice.toFixed(2);
+            updateReceiveAmount();
+        }
+
+        function closeTransferPopup() {
+            document.getElementById('transferPopup').style.display = 'none';
+        }
+
+        function updateReceiveAmount() {
+            const amount = parseFloat(document.getElementById('transferAmount')?.value) || 0;
+            const igtReceive = Math.floor(amount * cesPrice);
+            const igtElement = document.getElementById('igtReceive');
+            if (igtElement) igtElement.textContent = igtReceive;
+        }
+
+        function setManualPrice() {
+            const price = parseFloat(document.getElementById('manualPrice').value);
+            if (price > 0) {
+                cesPrice = price;
+                manualPriceSet = true;
+                document.getElementById('cesPrice').textContent = cesPrice.toFixed(2);
+                document.getElementById('popupCESPrice').textContent = cesPrice.toFixed(2);
+                updateReceiveAmount();
+            }
+        }
+
+        function transferToIGT() {
+            const amount = parseFloat(document.getElementById('transferAmount').value);
+            
+            if (amount > walletCES) {
+                alert('Insufficient CES balance!');
+                return;
+            }
+            
+            const igtReceived = Math.floor(amount * cesPrice);
+            
+            walletCES -= amount;
+            userIGT += igtReceived;
+            
+            updateTopBarBalances();
+            updateWalletDisplay();
+            closeTransferPopup();
+            alert(`Transferred ${igtReceived} IGT to your balance!`);
+        }
+
+        function showRefillSection() {
+            document.getElementById('refillSection').style.display = 'block';
+        }
+
+        function startPriceFluctuation() {
+            if (priceFluctuationInterval) clearInterval(priceFluctuationInterval);
+            
+            priceFluctuationInterval = setInterval(() => {
+                if (!manualPriceSet) {
+                    const random = Math.random();
+                    if (random < 0.02) {
+                        cesPrice = 40 + Math.random() * 10;
+                    } else {
+                        cesPrice = 0.9 + Math.random() * 4.1;
+                    }
+                    document.getElementById('cesPrice').textContent = cesPrice.toFixed(2);
+                    document.getElementById('popupCESPrice').textContent = cesPrice.toFixed(2);
+                    updateReceiveAmount();
+                }
+            }, 60000);
+        }
+
+        // ========== WALLET TAB SWITCHING ==========
+        function switchWalletTab(tab, element) {
+            // Hide all content
+            document.getElementById('assetsContent').style.display = 'none';
+            document.getElementById('defiContent').style.display = 'none';
+            document.getElementById('nftContent').style.display = 'none';
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked tab
+            element.classList.add('active');
+            
+            // Show selected content
+            document.getElementById(tab + 'Content').style.display = 'grid';
+            
+            // Move indicator
+            const indicator = document.querySelector('.tab-indicator');
+            const tabIndex = Array.from(document.querySelectorAll('.tab-btn')).indexOf(element);
+            
+            if (tabIndex === 0) indicator.style.transform = 'translateX(0)';
+            else if (tabIndex === 1) indicator.style.transform = 'translateX(100%)';
+            else if (tabIndex === 2) indicator.style.transform = 'translateX(200%)';
+        }
+
+        // ========== UPDATE COIN VALUES ==========
+        function updateCoinValues() {
+            // MATIC ~ $1 (random between 0.95-1.05)
+            const maticPrice = 0.95 + (Math.random() * 0.1);
+            const maticAmount = 100 + Math.floor(Math.random() * 50); // Random 100-150
+            
+            // DAI stable at $1
+            const daiPrice = 1.00;
+            const daiAmount = 500 + Math.floor(Math.random() * 200); // Random 500-700
+            
+            document.getElementById('maticAmount').textContent = maticAmount.toFixed(2);
+            document.getElementById('maticValue').textContent = (maticAmount * maticPrice).toFixed(2);
+            
+            document.getElementById('cesAmount').textContent = walletCES.toFixed(2);
+            document.getElementById('cesValue').textContent = (walletCES * cesPrice).toFixed(2);
+            
+            document.getElementById('daiAmount').textContent = daiAmount.toFixed(2);
+            document.getElementById('daiValue').textContent = (daiAmount * daiPrice).toFixed(2);
+            
+            // Update total balance
+            const total = (maticAmount * maticPrice) + (walletCES * cesPrice) + (daiAmount * daiPrice);
+            document.getElementById('totalBalance').textContent = total.toFixed(2);
+        }
+
+        // ========== CREATE PASSPORT NFT ==========
+        function closeCreatePassportPopup() {
+            document.getElementById('createPassportPopup').style.display = 'none';
+            document.getElementById('nftUpline').value = '';
+            document.getElementById('nftName').value = '';
+        }
+
+        function createPassportNFT() {
+            const upline = document.getElementById('nftUpline').value.trim();
+            const name = document.getElementById('nftName').value.trim();
+            
+            if (!upline || !name) {
+                alert('Please fill all fields');
+                return;
+            }
+            
+            const randomId = '#' + (Math.floor(Math.random() * 9000) + 10000);
+            
+            const newPassport = {
+                id: randomId,
+                name: name,
+                upline: upline,
+                activeSlots: [],
+                hasBGW: false
+            };
+            
+            passports.push(newPassport);
+            updatePassportGrid();
+            closeCreatePassportPopup();
+        }
+
+        // ========== CREATE LEVEL NFT ==========
+        function toggleLevelType() {
+            const type = document.querySelector('input[name="levelType"]:checked').value;
+            if (type === 'sequential') {
+                document.getElementById('sequentialSection').style.display = 'block';
+                document.getElementById('individualSection').style.display = 'none';
+                calculatePrice();
+            } else {
+                document.getElementById('sequentialSection').style.display = 'none';
+                document.getElementById('individualSection').style.display = 'block';
+                calculateIndividualPrice();
+            }
+        }
+
+        function calculatePrice() {
+            const slots = parseInt(document.getElementById('slotSelect').value);
+            let total = 0;
+            
+            for (let i = 0; i < slots; i++) {
+                total += slotPrices[i];
+            }
+            
+            const subscription = total * 0.1;
+            const finalTotal = total + subscription;
+            
+            document.getElementById('totalSlotsPrice').textContent = total;
+            document.getElementById('subscriptionAmount').textContent = Math.round(subscription);
+            document.getElementById('finalPrice').textContent = Math.round(finalTotal);
+        }
+
+        function calculateIndividualPrice() {
+            const slot = parseInt(document.getElementById('individualSlotSelect').value);
+            const price = slotPrices[slot - 1];
+            const subscription = price * 0.1;
+            const finalTotal = price + subscription;
+            
+            document.getElementById('totalSlotsPrice').textContent = price;
+            document.getElementById('subscriptionAmount').textContent = Math.round(subscription);
+            document.getElementById('finalPrice').textContent = Math.round(finalTotal);
+        }
+
+        function closeCreateLevelPopup() {
+            document.getElementById('createLevelPopup').style.display = 'none';
+        }
+
+        function createLevelNFT() {
+            const type = document.querySelector('input[name="levelType"]:checked').value;
+            
+            let slotStatus = [];
+            let totalPrice = 0;
+            
+            if (type === 'sequential') {
+                const slots = parseInt(document.getElementById('slotSelect').value);
+                for (let i = 1; i <= slots; i++) {
+                    slotStatus.push({ number: i, available: true });
+                    totalPrice += slotPrices[i - 1];
+                }
+            } else {
+                const slot = parseInt(document.getElementById('individualSlotSelect').value);
+                slotStatus.push({ number: slot, available: true });
+                totalPrice = slotPrices[slot - 1];
+            }
+            
+            // Calculate final price with 10% subscription (in IGT)
+            const subscription = totalPrice * 0.1;
+            const requiredIGT = Math.round(totalPrice + subscription);
+            
+            // Check total available value (IGT + CES converted)
+            const igtBalance = userIGT;
+            const cesValueInIGT = Math.floor(walletCES * cesPrice);
+            
+            if (igtBalance + cesValueInIGT < requiredIGT) {
+                alert(`❌ Insufficient Balance!\n\n` +
+                    `Need: ${requiredIGT} IGT\n` +
+                    `You have: ${igtBalance} IGT + ${walletCES} CES (≈ ${cesValueInIGT} IGT)\n` +
+                    `Total Value: ${igtBalance + cesValueInIGT} IGT`);
+                return;
+            }
+            
+            // Calculate how much to take from IGT and CES
+            let igtToUse = Math.min(igtBalance, requiredIGT);
+            let remainingIGT = requiredIGT - igtToUse;
+            let cesToUse = 0;
+            
+            if (remainingIGT > 0) {
+                cesToUse = Math.ceil(remainingIGT / cesPrice);
+            }
+            
+            // Deduct from balances
+            userIGT -= igtToUse;
+            if (cesToUse > 0) {
+                walletCES -= cesToUse;
+            }
+            
+            // Create Level NFT
+            const randomId = '#' + (Math.floor(Math.random() * 9000) + 10000);
+            
+            const newLevelNFT = {
+                id: randomId,
+                type: type,
+                totalSlots: slotStatus.length,
+                slotStatus: slotStatus,
+                price: requiredIGT
+            };
+            
+            levelNFTs.push(newLevelNFT);
+            
+            // Update displays
+            updateTopBarBalances();
+            updateWalletDisplay();
+            updateLevelGrid();
+            closeCreateLevelPopup();
+            
+            alert(`✅ Level NFT Created Successfully!\n\n` +
+                `ID: ${randomId}\n` +
+                `Price: ${requiredIGT} IGT\n` +
+                `Used: ${igtToUse} IGT + ${cesToUse} CES\n` +
+                `Remaining: ${userIGT} IGT, ${walletCES} CES`);
+        }
+
+        // ========== VOUCHER FUNCTIONS ==========
+        function updateVoucherDisplay() {
+            const amount = document.getElementById('voucherAmount').value;
+            document.getElementById('displayVoucherAmount').textContent = amount;
+        }
+
+        function closeCreateVoucherPopup() {
+            document.getElementById('createVoucherPopup').style.display = 'none';
+            document.getElementById('voucherAmount').value = '100';
+        }
+
+        function createVoucherNFT() {
+            const amount = parseInt(document.getElementById('voucherAmount').value);
+            
+            if (amount < 1) {
+                alert('Please enter a valid amount');
+                return;
+            }
+            
+            if (amount > userIGT) {
+                alert(`Insufficient IGT balance! You have ${userIGT} IGT`);
+                return;
+            }
+            
+            userIGT -= amount;
+            
+            const randomId = '#' + (Math.floor(Math.random() * 9000) + 10000);
+            const now = new Date();
+            const dateStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+            
+            const newVoucher = {
+                id: randomId,
+                amount: amount,
+                date: dateStr,
+                redeemed: false
+            };
+            
+            vouchers.push(newVoucher);
+            
+            updateTopBarBalances();
+            updateVoucherGrid();
+            closeCreateVoucherPopup();
+        }
+
+        function showRedemptionPopup(index) {
+            currentVoucherIndex = index;
+            const voucher = vouchers[index];
+            
+            document.getElementById('redemptionVoucherInfo').innerHTML = 
+                `Voucher: ${voucher.id}<br>Amount: ${voucher.amount} IGT`;
+            
+            document.getElementById('marketplaceOption').style.display = 'none';
+            document.getElementById('systemOption').style.display = 'none';
+            
+            document.getElementById('redemptionPopup').style.display = 'flex';
+        }
+
+        function closeRedemptionPopup() {
+            document.getElementById('redemptionPopup').style.display = 'none';
+            currentVoucherIndex = null;
+        }
+
+        function selectRedemptionOption(option) {
+            if (option === 'marketplace') {
+                document.getElementById('marketplaceOption').style.display = 'block';
+                document.getElementById('systemOption').style.display = 'none';
+                updateMarketplaceAmount();
+            } else {
+                document.getElementById('systemOption').style.display = 'block';
+                document.getElementById('marketplaceOption').style.display = 'none';
+                updateSystemAmount();
+            }
+        }
+
+        function updateMarketplaceAmount() {
+            if (currentVoucherIndex === null) return;
+            const voucher = vouchers[currentVoucherIndex];
+            const discount = parseInt(document.getElementById('discountPercent').value) || 0;
+            const discountedAmount = voucher.amount * (1 - discount/100);
+            document.getElementById('marketplaceAmount').textContent = Math.floor(discountedAmount);
+        }
+
+        function updateSystemAmount() {
+            if (currentVoucherIndex === null) return;
+            const voucher = vouchers[currentVoucherIndex];
+            const afterCut = voucher.amount * 0.9;
+            document.getElementById('systemAmount').textContent = Math.floor(afterCut);
+        }
+
+        function sellOnMarketplace() {
+            if (currentVoucherIndex === null) return;
+            const voucher = vouchers[currentVoucherIndex];
+            const discount = parseInt(document.getElementById('discountPercent').value) || 0;
+            const cesAmount = Math.floor(voucher.amount * (1 - discount/100));
+            
+            walletCES += cesAmount;
+            vouchers.splice(currentVoucherIndex, 1);
+            
+            updateWalletDisplay();
+            updateVoucherGrid();
+            closeRedemptionPopup();
+            
+            alert(`✅ Voucher listed on marketplace!\n💰 ${cesAmount} CES added to your wallet.`);
+        }
+
+        function sellToSystem() {
+            if (currentVoucherIndex === null) return;
+            const voucher = vouchers[currentVoucherIndex];
+            const cesAmount = Math.floor(voucher.amount * 0.9);
+            
+            walletCES += cesAmount;
+            vouchers.splice(currentVoucherIndex, 1);
+            
+            updateWalletDisplay();
+            updateVoucherGrid();
+            closeRedemptionPopup();
+            
+            alert(`✅ Voucher sold to system!\n💰 ${cesAmount} CES added to your wallet. (10% fee deducted)`);
+        }
+
+        function burnVoucher(index) {
+            const voucher = vouchers[index];
+            
+            if (confirm(`Are you sure you want to burn voucher ${voucher.id}?`)) {
+                userIGT += voucher.amount;
+                vouchers.splice(index, 1);
+                updateTopBarBalances();
+                updateVoucherGrid();
+                alert(`✅ Voucher burned!\n💰 ${voucher.amount} IGT returned to your balance.`);
+            }
+        }
+
+        // ========== ACTIVATE FUNCTIONS ==========
+        function showActivatePopup(levelIndex) {
+            currentLevelNFTIndex = levelIndex;
+            const levelNFT = levelNFTs[levelIndex];
+            
+            const availableSlots = levelNFT.slotStatus.filter(s => s.available).length;
+            
+            const select = document.getElementById('passportSelect');
+            select.innerHTML = '';
+            
+            if (passports.length === 0) {
+                alert('No Passport NFTs available. Create a Passport NFT first.');
+                return;
+            }
+            
+            passports.forEach((p, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                
+                const existing = p.activeSlots.length > 0 ? ` (Has: ${p.activeSlots.join(',')})` : ' (Empty)';
+                option.textContent = `${p.name}${existing}`;
+                select.appendChild(option);
+            });
+            
+            const availableSlotNumbers = levelNFT.slotStatus
+                .filter(s => s.available)
+                .map(s => s.number)
+                .sort((a,b) => a-b);
+            
+            let slotRangeHtml = '<div class="slot-range-info">';
+            slotRangeHtml += '<strong>Available slots in this Level NFT:</strong><br>';
+            slotRangeHtml += '<div class="slot-numbers">';
+            availableSlotNumbers.forEach(num => {
+                slotRangeHtml += `<span class="slot-number-badge">${num}</span>`;
+            });
+            slotRangeHtml += '</div></div>';
+            
+            document.getElementById('slotRangeInfo').innerHTML = slotRangeHtml;
+            document.getElementById('maxSlots').textContent = availableSlots;
+            document.getElementById('slotsToActivate').max = availableSlots;
+            document.getElementById('slotsToActivate').value = 1;
+            
+            updateActivateInfo();
+            
+            document.getElementById('activatePopup').style.display = 'flex';
+        }
+
+        function updateActivateInfo() {
+            const passportIndex = parseInt(document.getElementById('passportSelect').value);
+            const passport = passports[passportIndex];
+            const levelNFT = levelNFTs[currentLevelNFTIndex];
+            
+            const existingSlots = passport.activeSlots.sort((a,b) => a-b);
+            let nextRequiredSlot = 1;
+            while (existingSlots.includes(nextRequiredSlot)) {
+                nextRequiredSlot++;
+            }
+            
+            const availableFromLevel = levelNFT.slotStatus
+                .filter(s => s.available)
+                .map(s => s.number)
+                .sort((a,b) => a-b);
+            
+            document.getElementById('activateInfo').innerHTML = 
+                `Next slot to activate: <strong>${nextRequiredSlot}</strong><br>
+                Available from Level NFT: <strong>${availableFromLevel.join(', ') || 'None'}</strong>`;
+            
+            document.getElementById('amountInfo').innerHTML = 
+                'Return amount for already active slots will be added to IGT';
+        }
+
+        function closeActivatePopup() {
+            document.getElementById('activatePopup').style.display = 'none';
+            currentLevelNFTIndex = null;
+        }
+
+        function confirmActivate() {
+            if (currentLevelNFTIndex === null) return;
+            
+            const passportIndex = parseInt(document.getElementById('passportSelect').value);
+            const slotsToActivate = parseInt(document.getElementById('slotsToActivate').value);
+            
+            const levelNFT = levelNFTs[currentLevelNFTIndex];
+            const availableSlots = levelNFT.slotStatus.filter(s => s.available).length;
+            
+            if (slotsToActivate < 1 || slotsToActivate > availableSlots) {
+                alert(`You can only activate 1 to ${availableSlots} slots`);
+                return;
+            }
+            
+            const passport = passports[passportIndex];
+            const existingSlots = [...passport.activeSlots].sort((a, b) => a - b);
+            
+            // STEP 1: पता करो कि Passport में कौन से slots missing हैं
+            let missingSlots = [];
+            for (let i = 1; i <= 10; i++) {
+                if (!existingSlots.includes(i)) {
+                    missingSlots.push(i);
+                }
+            }
+            
+            // STEP 2: Level NFT के available slots
+            const availableSlotNumbers = levelNFT.slotStatus
+                .filter(s => s.available)
+                .map(s => s.number)
+                .sort((a, b) => a - b);
+            
+            // STEP 3: जो slots activate करने वाले हैं
+            const slotsToActivateNumbers = availableSlotNumbers.slice(0, slotsToActivate);
+            
+            // STEP 4: STRICT SEQUENCE CHECK - सिर्फ पहले नए स्लॉट के लिए
+            // सबसे छोटा नया स्लॉट ढूंढो जो पहले से active नहीं है
+            const firstNewSlot = slotsToActivateNumbers.find(slot => !existingSlots.includes(slot)) || slotsToActivateNumbers[0];
+            
+            // यह स्लॉट पहले missing slot के बराबर होना चाहिए
+            if (firstNewSlot !== missingSlots[0]) {
+                alert(`❌ Cannot activate!\n\n` +
+                    `This passport needs slot ${missingSlots[0]} first.\n` +
+                    `Current active slots: ${existingSlots.join(', ') || 'none'}\n` +
+                    `Missing slots: ${missingSlots.slice(0, 5).join(', ')}`);
+                return;
+            }
+            
+            // STEP 5: Check कि सारे नए slots consecutive हैं
+            const newSlotsOnly = slotsToActivateNumbers.filter(slot => !existingSlots.includes(slot));
+            for (let i = 0; i < newSlotsOnly.length - 1; i++) {
+                if (newSlotsOnly[i + 1] !== newSlotsOnly[i] + 1) {
+                    alert(`❌ New slots must be consecutive!\n` +
+                        `You tried: ${newSlotsOnly.join(', ')}`);
+                    return;
+                }
+            }
+            
+            // STEP 6: RETURN AMOUNT CALCULATION
+            let returnAmount = 0;
+            const newSlots = [];
+            const duplicateSlots = [];
+            
+            slotsToActivateNumbers.forEach(slotNum => {
+                if (existingSlots.includes(slotNum)) {
+                    returnAmount += slotPrices[slotNum - 1];
+                    duplicateSlots.push(slotNum);
+                } else {
+                    newSlots.push(slotNum);
+                }
+            });
+            
+            // STEP 7: Mark slots as used in level NFT
+            for (let i = 0; i < levelNFT.slotStatus.length; i++) {
+                if (slotsToActivateNumbers.includes(levelNFT.slotStatus[i].number)) {
+                    levelNFT.slotStatus[i].available = false;
+                }
+            }
+            
+            // STEP 8: Add new slots to passport
+            passport.activeSlots = [...existingSlots, ...newSlots].sort((a, b) => a - b);
+            
+            if (passport.activeSlots.length > 0) {
+                passport.hasBGW = true;
+            }
+            
+            // STEP 9: ADD RETURN AMOUNT TO IGT
+            if (returnAmount > 0) {
+                userIGT += returnAmount;
+            }
+            
+            // STEP 10: Check if level NFT is fully used
+            const remainingAvailable = levelNFT.slotStatus.filter(s => s.available).length;
+            if (remainingAvailable === 0) {
+                levelNFTs.splice(currentLevelNFTIndex, 1);
+            }
+            
+            // STEP 11: Update displays
+            updateTopBarBalances();
+            updatePassportGrid();
+            updateLevelGrid();
+            
+            closeActivatePopup();
+            
+            // STEP 12: Show message
+            let message = `✅ Successfully activated ${newSlots.length} new slots in ${passport.name}!\n`;
+            message += `New active slots: ${newSlots.join(', ')}`;
+            
+            if (duplicateSlots.length > 0) {
+                message += `\n\n🔄 Already active slots (returned): ${duplicateSlots.join(', ')}`;
+                message += `\n💰 Return amount: ${returnAmount} IGT`;
+            }
+            
+            alert(message);
+        }
+
+        // ========== BURN LEVEL NFT ==========
+        function burnLevelNFT(index) {
+            const levelNFT = levelNFTs[index];
+            
+            const availableSlots = levelNFT.slotStatus.filter(s => s.available);
+            const availableCount = availableSlots.length;
+            
+            if (availableCount === 0) {
+                if (confirm('Are you sure you want to burn this Level NFT? (No slots available to return)')) {
+                    levelNFTs.splice(index, 1);
+                    updateLevelGrid();
+                }
+                return;
+            }
+            
+            let totalPrice = 0;
+            availableSlots.forEach(slot => {
+                totalPrice += slotPrices[slot.number - 1];
+            });
+            
+            const returnAmount = totalPrice;
+            
+            const confirmMessage = 
+                `Are you sure you want to burn this Level NFT?\n\n` +
+                `Remaining available slots: ${availableSlots.map(s => s.number).join(', ')}\n` +
+                `Total value: ${totalPrice} IGT\n` +
+                `You will receive: ${returnAmount} IGT (FULL AMOUNT)\n\n` +
+                `This action cannot be undone!`;
+            
+            if (confirm(confirmMessage)) {
+                userIGT += returnAmount;
+                levelNFTs.splice(index, 1);
+                updateTopBarBalances();
+                updateLevelGrid();
+                alert(`✅ Successfully burned Level NFT!\n💰 Received ${returnAmount} IGT in your balance.`);
+            }
+        }
+
+        // ========== UPDATE GRIDS ==========
+        function updatePassportGrid() {
+            const grid = document.getElementById('passportGrid');
+            
+            if (!grid) return;
+            
+            if (passports.length === 0) {
+                grid.innerHTML = '<div class="empty-message">No Passport NFTs yet. Click "+ Create Passport NFT" to create one.</div>';
+                return;
+            }
+            
+            let html = '';
+            passports.forEach((p, index) => {
+                const activeSlots = p.activeSlots.sort((a, b) => a - b);
+                
+                let slotsHtml = '<div class="passport-slots-display">';
+                slotsHtml += '<strong>Active Slots:</strong>';
+                slotsHtml += '<div class="slots-grid">';
+                
+                for (let i = 1; i <= 10; i++) {
+                    const isActive = activeSlots.includes(i);
+                    slotsHtml += `<div class="slot-cell ${isActive ? 'active' : 'inactive'}">${i}</div>`;
+                }
+                
+                slotsHtml += '</div></div>';
+                
+                html += `
+                    <div class="passport-card">
+                        <h4>${p.name}</h4>
+                        <div class="nft-id">${p.id}</div>
+                        ${slotsHtml}
+                        <div class="bgw-box ${p.hasBGW ? 'active' : 'hidden'}"></div>
+                    </div>
+                `;
+            });
+            
+            grid.innerHTML = html;
+        }
+
+        function updateLevelGrid() {
+            const grid = document.getElementById('levelGrid');
+            
+            if (!grid) return;
+            
+            if (levelNFTs.length === 0) {
+                grid.innerHTML = '<div class="empty-message">No Level NFTs yet. Click "+ Create NFT Level" to create one.</div>';
+                return;
+            }
+            
+            let html = '';
+            levelNFTs.forEach((l, index) => {
+                let slotsHtml = '<div class="slot-circles">';
+                l.slotStatus.forEach(slot => {
+                    let statusClass = 'inactive';
+                    if (slot.available) statusClass = 'available';
+                    slotsHtml += `<div class="slot-circle ${statusClass}">${slot.number}</div>`;
+                });
+                slotsHtml += '</div>';
+                
+                const availableCount = l.slotStatus.filter(s => s.available).length;
+                const typeText = l.type === 'sequential' ? 'Sequential' : 'Individual';
+                
+                html += `
+                    <div class="passport-card">
+                        <h4>Level NFT (${typeText})</h4>
+                        <div class="nft-id">${l.id}</div>
+                        <div class="slot-info">Total Slots: ${l.totalSlots}</div>
+                        ${slotsHtml}
+                        <div class="bgw-box active"></div>
+                        <div class="card-actions">
+                            <div class="card-btn burn-btn" onclick="burnLevelNFT(${index})">Burn</div>
+                            ${availableCount > 0 ? 
+                                `<div class="card-btn activate-btn" onclick="showActivatePopup(${index})">Activate</div>` : 
+                                ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            grid.innerHTML = html;
+        }
+
+        function updateVoucherGrid() {
+            const grid = document.getElementById('voucherGrid');
+            
+            if (!grid) return;
+            
+            if (vouchers.length === 0) {
+                grid.innerHTML = '<div class="empty-message">No Vouchers yet. Click "+ Create Voucher NFT" to create one.</div>';
+                return;
+            }
+            
+            let html = '';
+            vouchers.forEach((v, index) => {
+                html += `
+                    <div class="voucher-card">
+                        <div class="voucher-id">${v.id}</div>
+                        <div class="voucher-amount">${v.amount}</div>
+                        <div class="voucher-igt">IGT</div>
+                        <div class="voucher-date">${v.date}</div>
+                        <div class="voucher-actions">
+                            <div class="voucher-btn redeem-btn" onclick="showRedemptionPopup(${index})">
+                                <i class="fas fa-exchange-alt"></i> Redamption
+                            </div>
+                            <div class="voucher-btn burn-btn-dark" onclick="burnVoucher(${index})">
+                                <i class="fas fa-fire"></i> Burn
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            grid.innerHTML = html;
+        }
+
+        function updateDashboardDisplay() {
+            if (currentUser) {
+                document.getElementById('dashboardAvatar').textContent = currentUser.avatar;
+                document.getElementById('dashboardUserName').textContent = currentUser.avatar + '...' + currentUser.name.slice(-3);
+            }
+            updateTopBarBalances();
+            updatePassportGrid();
+            updateLevelGrid();
+            updateVoucherGrid();
+        }
+
+        // ========== UTILITY FUNCTIONS ==========
+        function goBack() {
+            if (document.getElementById('page2').classList.contains('active')) {
+                showPage(1);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.page3-leftnav');
+            if (sidebar) {
+                sidebar.classList.toggle('collapsed');
+            }
+        }
+
+        // ========== EVENT LISTENERS ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            // Transfer amount listener
+            const transferInput = document.getElementById('transferAmount');
+            if (transferInput) {
+                transferInput.addEventListener('input', updateReceiveAmount);
+            }
+            
+            // Voucher amount listener
+            const voucherInput = document.getElementById('voucherAmount');
+            if (voucherInput) {
+                voucherInput.addEventListener('input', updateVoucherDisplay);
+            }
+            
+            // Passport select listener
+            const passportSelect = document.getElementById('passportSelect');
+            if (passportSelect) {
+                passportSelect.addEventListener('change', updateActivateInfo);
+            }
+            
+            // Slots to activate listener
+            const slotsInput = document.getElementById('slotsToActivate');
+            if (slotsInput) {
+                slotsInput.addEventListener('input', updateActivateInfo);
+            }
+            
+            // Discount percent listener
+            const discountInput = document.getElementById('discountPercent');
+            if (discountInput) {
+                discountInput.addEventListener('input', updateMarketplaceAmount);
+            }
+            
+            // Manual price listener
+            const manualPrice = document.getElementById('manualPrice');
+            if (manualPrice) {
+                manualPrice.addEventListener('input', function() {
+                    const price = parseFloat(this.value);
+                    if (price > 0) {
+                        cesPrice = price;
+                        document.getElementById('cesPrice').textContent = cesPrice.toFixed(2);
+                        document.getElementById('popupCESPrice').textContent = cesPrice.toFixed(2);
+                        updateReceiveAmount();
+                    }
+                });
+            }
+        });
+
+        // ========== INITIALIZE ==========
+        window.onload = function() {
+            showPage(1);
+            
+            users.push({
+                name: 'Demo User',
+                email: 'demo@test.com',
+                password: 'demo123',
+                avatar: 'DU'
+            });
+            
+            passports = [];
+            levelNFTs = [];
+            vouchers = [];
+            userIGT = 0;
+            walletCES = 0;
+            
+            updateTopBarBalances();
+            updateWalletDisplay();
+            updatePassportGrid();
+            updateLevelGrid();
+            updateVoucherGrid();
+            startPriceFluctuation();
+        };
+    </script>
+</body>
+</html>
